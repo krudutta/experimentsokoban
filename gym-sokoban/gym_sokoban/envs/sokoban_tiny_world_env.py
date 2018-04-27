@@ -29,7 +29,7 @@ class TinyWorldSokobanEnv(SokobanEnv):
         return observation, reward, done, info
 
     def render(self, mode='human', close=None):
-        img = room_to_tiny_world_rgb(self.room_state, self.room_fixed, scale=16)
+        img = room_to_tiny_world_rgb(self.room_state, self.room_fixed, scale=8)
 
         if mode == 'rgb_array':
             return img
