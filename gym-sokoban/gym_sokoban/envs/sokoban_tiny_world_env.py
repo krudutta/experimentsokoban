@@ -13,23 +13,23 @@ class TinyWorldSokobanEnv(SokobanEnv):
              num_gen_steps=None):
 
         super(TinyWorldSokobanEnv, self).__init__(dim_room, max_steps, num_boxes, num_gen_steps)
-        screen_height, screen_width = (dim_room[0] * 16, dim_room[1] * 16)
+        screen_height, screen_width = (dim_room[0] * 8, dim_room[1] * 8)
         self.observation_space = Box(low=0, high=255, shape=(screen_height, screen_width, 3))
 
     def reset(self):
         super(TinyWorldSokobanEnv, self).reset()
-        observation = room_to_tiny_world_rgb(self.room_state, self.room_fixed)
+        observation = room_to_tiny_world_rgb(self.room_state, self.room_fixed, scale=8)
 
         return observation
 
     def step(self, action):
         _, reward, done, info = super(TinyWorldSokobanEnv, self).step(action)
-        observation = room_to_tiny_world_rgb(self.room_state, self.room_fixed)
+        observation = room_to_tiny_world_rgb(self.room_state, self.room_fixed, scale=8)
 
         return observation, reward, done, info
 
     def render(self, mode='human', close=None):
-        img = room_to_tiny_world_rgb(self.room_state, self.room_fixed, scale=16)
+        img = room_to_tiny_world_rgb(self.room_state, self.room_fixed, scale=8)
 
         if mode == 'rgb_array':
             return img

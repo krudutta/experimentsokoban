@@ -5,9 +5,11 @@ import numpy as np
 
 class SokobanEnv:
     def __init__(self):
-        self.env = gym.make('Sokoban-v0')
+        self.env = gym.make('TinyWorld-Sokoban-v1')
         self.action_space      = self.env.action_space
-        self.observation_space = spaces.Box(low=0, high=255, shape=(3, 160, 160), dtype=np.uint8)
+        self.count = 0
+        a = self.env.observation_space.shape
+        self.observation_space = spaces.Box(low=0, high=255, shape=(3, a[0], a[1]), dtype=np.uint8)
 
     def step(self, action):
         observation, reward, self.done, _ = self.env.step(action)
@@ -15,7 +17,15 @@ class SokobanEnv:
         return observation, reward, self.done, {}
 
     def reset(self):
-        image = self.env.reset()
-        self.done = False
-        image = image.transpose(2, 0, 1)
-        return image
+        try:
+            image = self.env.reset()
+            self.done = False
+            image = image.transpose(2, 0, 1)
+            return image
+        except:
+            if self.count <= 5:
+                print("Trying again!!")
+                self.count+=1
+                self.reset()
+            else:
+                raise RuntimeError("no")
