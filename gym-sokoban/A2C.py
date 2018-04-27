@@ -63,14 +63,18 @@ class ActorCritic(OnPolicy):
         self.in_shape = in_shape
         
         self.features = nn.Sequential(
-            nn.Conv2d(in_shape[0], 32, kernel_size=8, stride=1),
+            nn.Conv2d(in_shape[0], 32, kernel_size=8, stride=8),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=1),
+            nn.Conv2d(32, 32, kernel_size=3, stride=1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, kernel_size=3, stride=1),
             nn.ReLU(),
         )
         
         self.fc = nn.Sequential(
-            nn.Linear(self.feature_size(), 128),
+            nn.Linear(self.feature_size(), 512),
+            nn.ReLU(),
+            nn.Linear(512, 128),
             nn.ReLU(),
         )
         
@@ -125,10 +129,10 @@ class RolloutStorage(object):
         return returns[:-1]
 
 
-# In[3]:
+# In[ ]:
 
 
-num_envs = 2
+num_envs = 6
 
 def make_env():
     def _thunk():
@@ -148,7 +152,7 @@ entropy_coef = 0.01
 value_loss_coef = 0.5
 max_grad_norm = 0.5
 num_steps = 120
-num_batch = int(10e5)
+num_batch = int(10e6)
 
 #rmsprop hyperparams:
 lr    = 7e-4
@@ -171,6 +175,7 @@ all_losses  = []
 
 state = envs.reset()
 state = torch.FloatTensor(np.float32(state))
+
 
 rollout.states[0].copy_(state)
 
