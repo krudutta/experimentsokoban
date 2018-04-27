@@ -227,8 +227,8 @@ for i_update in range(num_batch):
     optimizer.step()
     
     if i_update % 100 == 0:
-        all_rewards.append(final_rewards.mean())
-        all_losses.append(loss.data[0])
+        #all_rewards.append(final_rewards.mean())
+        #all_losses.append(loss.data[0])
         print("REWARDS=> MEAN: "+str(final_rewards.mean())+" MAX: "+str(final_rewards.max())+" MEDIAN: "+str(final_rewards.median()))
         
         
