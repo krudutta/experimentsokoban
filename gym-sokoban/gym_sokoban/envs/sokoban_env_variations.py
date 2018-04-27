@@ -105,7 +105,7 @@ class TW_SokobanEnv1(TinyWorldSokobanEnv):
 
     def __init__(self):
         super(TW_SokobanEnv1, self).__init__(
-            num_boxes=4
+            num_boxes=2
         )
 
 

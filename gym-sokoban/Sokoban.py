@@ -17,15 +17,7 @@ class SokobanEnv:
         return observation, reward, self.done, {}
 
     def reset(self):
-        try:
-            image = self.env.reset()
-            self.done = False
-            image = image.transpose(2, 0, 1)
-            return image
-        except:
-            if self.count <= 5:
-                print("Trying again!!")
-                self.count+=1
-                self.reset()
-            else:
-                raise RuntimeError("no")
+        image = self.env.reset()
+        self.done = False
+        image = image.transpose(2, 0, 1)
+        return image
