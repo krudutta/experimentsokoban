@@ -20,7 +20,7 @@ class SokobanEnv(gym.Env):
         # General Configuration
         self.dim_room = dim_room
         if num_gen_steps == None:
-            self.num_gen_steps = int(1.7 * (dim_room[0] + dim_room[1]))
+            self.num_gen_steps = int(2.5 * (dim_room[0] + dim_room[1]))
         else:
             self.num_gen_steps = num_gen_steps
 
