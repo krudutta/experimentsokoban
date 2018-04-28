@@ -45,8 +45,8 @@ def generate_room(dim=(13, 13), p_change_directions=0.35, num_steps=25, num_boxe
         if score > 0:
             break
 
-    if score == 0:
-        raise RuntimeWarning('Generated Model with score == 0')
+    #if score == 0:
+    #    raise RuntimeWarning('Generated Model with score == 0')
 
     return room_structure, room_state
 
